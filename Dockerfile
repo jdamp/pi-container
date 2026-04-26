@@ -17,6 +17,7 @@ RUN apt-get update \
      fonts-roboto \
      git \
      jq \
+     just \
      make \
      openssh-client \
      perl \
@@ -25,6 +26,7 @@ RUN apt-get update \
      ripgrep \
      tar \
      unzip \
+     vim \
      wget \
      xz-utils \
  && rm -rf /var/lib/apt/lists/*
