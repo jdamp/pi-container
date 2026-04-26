@@ -5,6 +5,7 @@ FROM node:22-bookworm-slim
 ARG PI_VERSION=latest
 ARG QMD_VERSION=2.1.0
 ARG TYPST_VERSION=0.14.2
+ARG JUST_VERSION=1.40.0
 
 # System packages
 RUN apt-get update \
@@ -17,7 +18,6 @@ RUN apt-get update \
      fonts-roboto \
      git \
      jq \
-     just \
      make \
      openssh-client \
      perl \
@@ -45,6 +45,10 @@ RUN sed -i 's|^node:|pi:|; s|:/home/node:|:/home/pi:|' /etc/passwd \
 # typst
 RUN wget -qO- "https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" \
     | tar -xJf - --strip-components=1 -C /usr/local/bin/ "typst-x86_64-unknown-linux-musl/typst"
+
+# just (not in Debian apt repos)
+RUN wget -qO- "https://github.com/casey/just/releases/download/${JUST_VERSION}/just-${JUST_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
+    | tar -xzf - -C /usr/local/bin/ just
 
 # Pi tooling
 RUN npm install -g "@mariozechner/pi-coding-agent@${PI_VERSION}" \
